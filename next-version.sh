@@ -50,11 +50,3 @@ git push origin "v$new_version"
 
 # Print a success message
 echo "New version published successfully."
-
-# Ask if the user wants to create a release on GitHub
-read -p "Do you want to create a release on GitHub? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  # Create a release on github using all the PR titles since the last release
-  gh release create "v$new_version" "v$new_version" -t "v$new_version" -n "$(git log --pretty=format:'- %s' $last_tag..HEAD)"
-fi
