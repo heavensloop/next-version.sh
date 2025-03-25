@@ -33,11 +33,20 @@ else
 fi
 
 # Print the new version number
-
 echo "New tag: $new_version"
+
+# Add a confirmation before creating the new version
+read -p "Do you want to create a new \"$version_type\" version? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
 
 # Create a new git tag
 git tag -a "v$new_version" -m "Version $new_version"
 
 # Push the new tag to the remote repository
 git push origin "v$new_version"
+
+# Print a success message
+echo "New version published successfully."
